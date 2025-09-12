@@ -19,10 +19,29 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - name: Pull content/media via RepoMirror
+      - name: Pull content/media (mini-mirror)
+        env:
+          CONTENT_PAT: ${{ secrets.CONTENT_PAT }}  # optional if repos are private
         run: |
-          npm i -g repomirror || true
-          repomirror --config repomirror.config.json
+          set -euo pipefail
+          # auth rewrite only if token is present (for private repos)
+          if [ -n "${CONTENT_PAT:-}" ]; then
+            git config --global url."https://oauth2:${CONTENT_PAT}@github.com/".insteadOf "https://github.com/"
+          fi
+
+          rm -rf tmp-mirror && mkdir -p tmp-mirror
+          cd tmp-mirror
+
+          echo "==> Mirroring luke-content"
+          git clone --depth=1 https://github.com/snucko/luke-content.git content
+          rsync -a --delete content/ ../src/content/
+
+          echo "==> Mirroring luke-media"
+          git clone --depth=1 https://github.com/snucko/luke-media.git media
+          rsync -a --delete media/ ../public/media/
+
+          cd ..
+          rm -rf tmp-mirror
       - name: Install deps
         run: npm ci
       - name: Build
