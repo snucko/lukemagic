@@ -3,7 +3,7 @@ import Base from "../../layouts/Base.astro";
 import { getCollection } from 'astro:content';
 const tricks = await getCollection('tricks');
 ---
-<Base title="Tricks — Luke">
+<Base title="Tricks — Luke" description="Collection of magic tricks and routines performed by Luke.">
   <section class="max-w-6xl mx-auto px-6 py-12">
     <h1 class="text-3xl mb-6">Tricks</h1>
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
