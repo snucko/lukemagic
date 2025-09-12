@@ -1,0 +1,10 @@
+---
+const { title = "Luke — Magic", description = "Street magic, close-up, and stage by Luke.", ogImage = "/media/og-default.png", canonical = undefined } = Astro.props;
+---
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical ?? Astro.url.href} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={ogImage} />
+<meta name="twitter:card" content="summary_large_image" />

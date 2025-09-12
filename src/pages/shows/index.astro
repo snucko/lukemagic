@@ -1,0 +1,29 @@
+---
+import Base from "../../layouts/Base.astro";
+import { getCollection } from 'astro:content';
+const shows = (await getCollection('shows')).sort((a,b)=> (a.data.date > b.data.date ? 1 : -1));
+const eventsLd = shows.map(s => ({
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": s.data.title,
+  "startDate": s.data.date,
+  "eventStatus": "https://schema.org/EventScheduled",
+  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+  "location": { "@type": "Place", "name": s.data.venue || "TBA", "address": s.data.city || "" }
+}));
+---
+<Base title="Shows — Luke">
+  <script type="application/ld+json">{JSON.stringify(eventsLd)}</script>
+  <section class="max-w-4xl mx-auto px-6 py-12">
+    <h1 class="text-3xl mb-6">Upcoming Shows</h1>
+    <ul class="space-y-4">
+      {shows.map(s => (
+        <li class="p-4 card">
+          <div class="text-lg">{s.data.title}</div>
+          <div class="opacity-80 text-sm">{s.data.date} {s.data.time ? `• ${s.data.time}` : ""} • {s.data.venue ?? ""}{s.data.venue && s.data.city ? ", " : ""}{s.data.city ?? ""}</div>
+          {s.data.rsvpUrl && <a class="text-sm" href={s.data.rsvpUrl}>RSVP</a>}
+        </li>
+      ))}
+    </ul>
+  </section>
+</Base>

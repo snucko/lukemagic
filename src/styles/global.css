@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: light dark; }
+html, body { @apply bg-magic-bg text-neutral-100; }
+a { @apply underline decoration-neutral-600 hover:decoration-neutral-300 underline-offset-4; }
+.card { @apply rounded-2xl bg-magic-panel border border-neutral-800 shadow-card; }
+.btn-primary { @apply px-5 py-3 rounded-2xl bg-magic-gold text-black no-underline; }
+.btn-ghost { @apply px-5 py-3 rounded-2xl border border-neutral-700 no-underline; }

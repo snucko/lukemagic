@@ -1,0 +1,47 @@
+---
+import Seo from "../components/Seo.astro";
+const { title = "Luke — Magic", description = "Street magic, close-up, and stage by Luke.", ogImage = "/media/og-default.png" } = Astro.props;
+
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Luke",
+  "url": Astro.site?.toString() ?? "https://luke.tivnan.org",
+  "sameAs": []
+};
+---
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <Seo {title} {description} {ogImage} />
+    <script type="application/ld+json">{JSON.stringify(personJsonLd)}</script>
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="stylesheet" href="/src/styles/global.css" />
+  </head>
+  <body class="min-h-screen flex flex-col font-display">
+    <header class="px-6 py-4 border-b border-neutral-800">
+      <div class="max-w-6xl mx-auto flex items-center justify-between">
+        <a href="/" class="text-xl font-semibold tracking-wide no-underline">Luke</a>
+        <nav class="flex gap-4 text-sm">
+          <a href="/tricks/">Tricks</a>
+          <a href="/shows/">Shows</a>
+          <a href="/gallery/">Gallery</a>
+          <a href="/about/">About</a>
+          <a href="/contact/">Contact</a>
+        </nav>
+      </div>
+    </header>
+    <main class="flex-1">{Astro.slots.default ? <slot/> : null}</main>
+    <footer class="px-6 py-10 border-t border-neutral-800 text-sm">
+      <div class="max-w-6xl mx-auto flex items-center justify-between">
+        <p>© {new Date().getFullYear()} Luke</p>
+        <div class="flex items-center gap-3 opacity-80">
+          <a href="/rss.xml">RSS</a>
+          <a href="/sitemap-index.xml">Sitemap</a>
+          <a href="/shows.ics">ICS</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
