@@ -1,9 +1,9 @@
 ---
 title: "Ambitious Card — Street Routine"
-tags: ["[\\\"cards\\\"", "\\\"sleights\\\"", "\\\"audience-participation\\\"]"]
+tags: ["cards", "sleights", "audience-participation"]
 summary: "A tight 4-minute version with double-lifts and a kicker ending."
 published: "2025-09-01"
 difficulty: "intermediate"
 durationMin: 4
 ---
-Write-up goes here.
+Performance notes and method details will be added here.
