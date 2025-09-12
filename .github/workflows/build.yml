@@ -43,7 +43,7 @@ jobs:
           cd ..
           rm -rf tmp-mirror
       - name: Install deps
-        run: npm ci
+        run: npm install --no-audit --no-fund 
       - name: Build
         run: npm run build
       - name: Upload artifact
