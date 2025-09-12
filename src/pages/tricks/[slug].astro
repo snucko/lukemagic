@@ -6,8 +6,9 @@ export async function getStaticPaths() {
   return all.map((entry) => ({ params: { slug: entry.slug }, props: { entry } }));
 }
 const { entry } = Astro.props;
+const ogImage = `/og/tricks/${entry.slug}.png`;
 ---
-<Base title={`${entry.data.title} — Trick`}>
+<Base ogImage={ogImage} title={`${entry.data.title} — Trick`}>
   <article class="max-w-3xl mx-auto px-6 py-16 prose prose-invert">
     <h1>{entry.data.title}</h1>
     <p class="opacity-80">{entry.data.summary}</p>

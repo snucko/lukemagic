@@ -1,0 +1,37 @@
+---
+import Base from "../layouts/Base.astro";
+---
+<Base title="Press — Luke" description="Bio, press quotes, photos, contact for bookings.">
+  <section class="max-w-5xl mx-auto px-6 py-14">
+    <h1 class="text-3xl font-bold mb-6">Press Kit</h1>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="card p-6 md:col-span-2">
+        <h2 class="text-xl mb-2">Short Bio</h2>
+        <p>Luke performs close-up and street magic with clean, high-impact routines perfect for events and festivals.</p>
+        <h3 class="mt-6 mb-2 text-lg">Long Bio</h3>
+        <p>Luke is a magician focused on cards and coins, blending modern sleight-of-hand with audience-friendly presentation...</p>
+      </div>
+      <div class="card p-6">
+        <h2 class="text-xl mb-2">Quick Facts</h2>
+        <ul class="list-disc pl-5 space-y-1">
+          <li>Location: Providence, RI</li>
+          <li>Format: Close-up / Street / Small stage</li>
+          <li>Booking: <a href="/contact/">Contact form</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card p-6 mt-6">
+      <h2 class="text-xl mb-3">Photos</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <a href="/media/hero.jpg"><img class="rounded-2xl" src="/media/hero.jpg" alt="Luke performing"></a>
+        <a href="/media/gallery/1.jpg"><img class="rounded-2xl" src="/media/gallery/1.jpg" alt="Gallery image"></a>
+        <a href="/media/gallery/2.jpg"><img class="rounded-2xl" src="/media/gallery/2.jpg" alt="Gallery image"></a>
+        <a href="/media/gallery/3.jpg"><img class="rounded-2xl" src="/media/gallery/3.jpg" alt="Gallery image"></a>
+      </div>
+    </div>
+
+    <div class="text-sm opacity-80 mt-6">Need something else? <a href="/contact/">Get in touch</a>.</div>
+  </section>
+</Base>
