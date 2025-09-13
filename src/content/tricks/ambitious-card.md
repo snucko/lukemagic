@@ -6,4 +6,4 @@ published: "2025-09-01"
 difficulty: "intermediate"
 durationMin: 4
 ---
-Performance notes and method details will be added here.
+<!-- TODO: Add performance notes and method details -->
