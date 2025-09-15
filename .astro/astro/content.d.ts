@@ -166,6 +166,27 @@ declare module 'astro:content' {
   collection: "tricks";
   data: InferEntrySchema<"tricks">
 } & { render(): Render[".md"] };
+"card-to-wallet.md": {
+	id: "card-to-wallet.md";
+  slug: "card-to-wallet";
+  body: string;
+  collection: "tricks";
+  data: InferEntrySchema<"tricks">
+} & { render(): Render[".md"] };
+"coin-matrix.md": {
+	id: "coin-matrix.md";
+  slug: "coin-matrix";
+  body: string;
+  collection: "tricks";
+  data: InferEntrySchema<"tricks">
+} & { render(): Render[".md"] };
+"four-ace-assembly.md": {
+	id: "four-ace-assembly.md";
+  slug: "four-ace-assembly";
+  body: string;
+  collection: "tricks";
+  data: InferEntrySchema<"tricks">
+} & { render(): Render[".md"] };
 };
 
 	};
