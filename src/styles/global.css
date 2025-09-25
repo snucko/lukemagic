@@ -13,3 +13,28 @@ a { @apply underline decoration-neutral-600 hover:decoration-neutral-300 underli
 .card { @apply rounded-2xl bg-magic-panel border border-neutral-800 shadow-card; }
 .btn-primary { @apply px-5 py-3 rounded-2xl bg-magic-gold text-black no-underline; }
 .btn-ghost { @apply px-5 py-3 rounded-2xl border border-neutral-700 no-underline; }
+
+  .dark {
+    background-color: #1a002a; /* Dark purple base */
+    background-image: radial-gradient(
+      at 0% 0%,
+      rgba(255, 255, 255, 0.05) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      at 100% 100%,
+      rgba(255, 255, 255, 0.05) 0%,
+      transparent 50%
+    );
+    background-size: 200% 200%;
+    animation: starfield-pan 60s linear infinite;
+  }
+
+  @keyframes starfield-pan {
+    0% {
+      background-position: 0% 0%;
+    }
+    100% {
+      background-position: 200% 200%;
+    }
+  }
