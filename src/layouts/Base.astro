@@ -19,17 +19,36 @@ const personJsonLd = {
     <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="stylesheet" href="/src/styles/global.css" />
   </head>
-  <body class="min-h-screen flex flex-col font-display">
+  <body class="min-h-screen flex flex-col font-display animate-fade-in">
     <header class="px-6 py-4 border-b border-neutral-800">
       <div class="max-w-6xl mx-auto flex items-center justify-between">
-        <a href="/" class="text-xl font-semibold tracking-wide no-underline">Luke</a>
+        <a href="/" class="text-xl font-serif font-semibold tracking-wide no-underline">Luke</a>
         <nav class="flex gap-4 text-sm">
-          <a href="/tricks/">Tricks</a>
-          <a href="/shows/">Shows</a>
-          <a href="/gallery/">Gallery</a>
-          <a href="/press/">Press</a>
-          <a href="/about/">About</a>
-          <a href="/contact/">Contact</a>
+          
+          <a href="/ideas/" class="relative group">
+            <span>Ideas</span>
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-magic-gold transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <a href="/shows/" class="relative group">
+            <span>Shows</span>
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-magic-gold transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <a href="/gallery/" class="relative group">
+            <span>Gallery</span>
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-magic-gold transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <a href="/press/" class="relative group">
+            <span>Press</span>
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-magic-gold transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <a href="/about/" class="relative group">
+            <span>About</span>
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-magic-gold transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <a href="/contact/" class="relative group">
+            <span>Contact</span>
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-magic-gold transition-all duration-300 group-hover:w-full"></span>
+          </a>
         </nav>
       </div>
     </header>

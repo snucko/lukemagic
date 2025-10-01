@@ -1,0 +1,22 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+const ideas = await getCollection('idea');
+---
+
+<Base title="Trick Ideas — Luke Magic" description="A collection of intriguing magic tricks.">
+  <section class="max-w-6xl mx-auto px-6 py-16">
+    <h1 class="text-4xl md:text-6xl font-serif font-bold leading-tight">Trick Ideas</h1>
+    <p class="mt-4 text-lg opacity-90">A collection of intriguing magic tricks and illusions.</p>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
+      {ideas.map(idea => (
+        <div class="card p-6">
+          <h2 class="text-xl font-bold font-serif">{idea.data.title}</h2>
+          <p class="mt-2 opacity-80">{idea.data.description}</p>
+          <p class="mt-4 text-sm font-bold text-magic-purple">{idea.data.category}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+</Base>

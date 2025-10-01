@@ -1,0 +1,29 @@
+name: Generate New Trick Idea
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Runs every day at midnight
+  workflow_dispatch: # Allows manual triggering
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Generate new idea
+        run: node scripts/generate-idea.mjs
+        env:
+          # OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }} # Placeholder for the API key
+
+      - name: Commit and push changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "chore: generate new trick idea"
+          file_pattern: "src/content/idea/*.md"

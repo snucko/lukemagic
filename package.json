@@ -16,6 +16,7 @@
     "@vite-pwa/astro": "^0.4.0",
     "astro": "^4.13.3",
     "elasticlunr": "0.9.5",
+    "openai": "^6.0.1",
     "photoswipe": "^5.4.4"
   },
   "devDependencies": {

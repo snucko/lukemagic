@@ -1,0 +1,42 @@
+[
+  {
+    "title": "Ambitious Card",
+    "description": "A selected card repeatedly returns to the top of the deck, no matter how many times it is placed in the middle.",
+    "category": "Cards"
+  },
+  {
+    "title": "Torn and Restored Newspaper",
+    "description": "A newspaper is torn into pieces and then magically restored to its original state.",
+    "category": "Stage"
+  },
+  {
+    "title": "Floating Bill",
+    "description": "A borrowed bill levitates in mid-air, seemingly defying gravity.",
+    "category": "Close-up"
+  },
+  {
+    "title": "Cups and Balls",
+    "description": "One of the oldest tricks in magic, where balls vanish, appear, and transpose under three cups.",
+    "category": "Close-up"
+  },
+  {
+    "title": "Mental Epic",
+    "description": "A prediction, sealed in an envelope, perfectly matches the random choices of three audience members.",
+    "category": "Mentalism"
+  },
+  {
+    "title": "Chinese Linking Rings",
+    "description": "Solid metal rings link and unlink in a beautiful and mysterious routine.",
+    "category": "Stage"
+  },
+  {
+    "title": "Sponge Balls",
+    "description": "Soft sponge balls vanish from the magician's hand and appear in the spectator's hand.",
+    "category": "Close-up"
+  },
+  {
+    "title": "Cut and Restored Rope",
+    "description": "A rope is cut in the middle and then magically restored to a single piece.",
+    "category": "Stage"
+  }
+]
