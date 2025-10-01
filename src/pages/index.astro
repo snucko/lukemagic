@@ -1,8 +1,12 @@
 import { getCollection } from 'astro:content';
 import Base from "../layouts/Base.astro";
 
-const ideas = await getCollection('idea');
-const randomIdeas = ideas.sort(() => 0.5 - Math.random()).slice(0, 3);
+async function getRandomIdeas() {
+  const ideas = await getCollection('idea');
+  return ideas.sort(() => 0.5 - Math.random()).slice(0, 3);
+}
+
+const randomIdeas = await getRandomIdeas();
 ---
 <Base title="Luke — Magic" description="Street magic, close-up, and stage by Luke.">
   <section class="max-w-6xl mx-auto px-6 py-16">
