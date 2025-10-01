@@ -5,6 +5,7 @@ import VitePWA from '@vite-pwa/astro';
 
 export default defineConfig({
   site: 'https://lukemagic.tivnan.org',
+  base: '/lukemagic',
   integrations: [
     tailwind({ applyBaseStyles: true }),
     sitemap(),
