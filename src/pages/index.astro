@@ -1,4 +1,5 @@
 import Base from "../layouts/Base.astro";
+import Inspirations from "../components/Inspirations.astro";
 ---
 <Base title="Luke — Magic" description="Street magic, close-up, and stage by Luke.">
   <section class="max-w-6xl mx-auto px-6 py-16">
@@ -13,5 +14,10 @@ import Base from "../layouts/Base.astro";
       </div>
       <img src="/media/hero.jpg" alt="Luke performing" class="rounded-2xl transition-transform duration-300 hover:scale-105" loading="lazy" />
     </div>
+  </section>
+  <section class="max-w-6xl mx-auto px-6 py-16">
+    <h2 class="text-3xl md:text-4xl font-serif font-bold leading-tight text-center">Inspirations</h2>
+    <p class="mt-4 text-lg opacity-90 text-center">A glimpse into the world of magic.</p>
+    <Inspirations />
   </section>
 </Base>
