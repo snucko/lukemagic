@@ -2,7 +2,7 @@
 
 <script>
   async function fetchInspirations() {
-    const response = await fetch('/api/ideas.json');
+    const response = await fetch('/lukemagic/api/ideas.json');
     const ideas = await response.json();
     const randomIdeas = ideas.sort(() => 0.5 - Math.random()).slice(0, 3);
 
