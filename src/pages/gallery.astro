@@ -1,7 +1,17 @@
 ---
 import Base from "../layouts/Base.astro";
 import Gallery from "../components/Gallery.astro";
-const images = ["/media/gallery/magic.png","/media/gallery/magic.png","/media/gallery/magic.png"];
+const images = [
+  "/media/gallery/row-1-column-1.png",
+  "/media/gallery/row-1-column-2.png",
+  "/media/gallery/row-1-column-3.png",
+  "/media/gallery/row-2-column-1.png",
+  "/media/gallery/row-2-column-2.png",
+  "/media/gallery/row-2-column-3.png",
+  "/media/gallery/row-3-column-1.png",
+  "/media/gallery/row-3-column-2.png",
+  "/media/gallery/row-3-column-3.png",
+];
 ---
 <Base title="Gallery — Luke" description="Photo gallery of Luke's magic performances and show highlights.">
   <Gallery images={images} />
