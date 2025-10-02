@@ -4,10 +4,11 @@ import Base from "../layouts/Base.astro";
 <Base title="Contact — Luke" description="Get in touch with Luke for magic show bookings and inquiries.">
   <section class="max-w-3xl mx-auto px-6 py-16 prose prose-invert">
     <h1>Contact</h1>
-    <form action="https://formspree.io/f/your-id" method="POST" class="grid gap-4">
+    <form action="https://formspree.io/f/xyznjjld" method="POST" class="grid gap-4">
       <input class="px-4 py-3 rounded-2xl bg-magic-panel border border-neutral-700" type="text" name="name" placeholder="Your name" required />
       <input class="px-4 py-3 rounded-2xl bg-magic-panel border border-neutral-700" type="email" name="email" placeholder="Email" required />
       <textarea class="px-4 py-3 rounded-2xl bg-magic-panel border border-neutral-700" name="message" placeholder="How can we help?" required></textarea>
+      <input type="hidden" name="_redirect" value="/" />
       <button class="btn-primary" type="submit">Send</button>
     </form>
   </section>

@@ -148,6 +148,13 @@ declare module 'astro:content' {
   collection: "idea";
   data: InferEntrySchema<"idea">
 } & { render(): Render[".md"] };
+"mental-epic.md": {
+	id: "mental-epic.md";
+  slug: "mental-epic";
+  body: string;
+  collection: "idea";
+  data: InferEntrySchema<"idea">
+} & { render(): Render[".md"] };
 "misers-dream.md": {
 	id: "misers-dream.md";
   slug: "misers-dream";
