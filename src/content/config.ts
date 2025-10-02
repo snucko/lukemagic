@@ -13,10 +13,14 @@ const posts = defineCollection({
 const shows = defineCollection({
   schema: z.object({
     title: z.string(),
-    location: z.string(),
+    summary: z.string(),
+    tags: z.array(z.string()).optional(),
     date: z.date(),
-    luma: z.string().optional(),
-    map: z.string().optional(),
+    time: z.string().optional(),
+    city: z.string().optional(),
+    venue: z.string().optional(),
+    rsvpUrl: z.string().optional(),
+    image: z.string().optional(),
   }),
 });
 

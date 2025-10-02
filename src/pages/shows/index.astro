@@ -18,10 +18,13 @@ const eventsLd = shows.map(s => ({
     <h1 class="text-3xl mb-6">Upcoming Shows</h1>
     <ul class="space-y-4">
       {shows.map(s => (
-        <li class="p-4 card">
-          <div class="text-lg">{s.data.title}</div>
-          <div class="opacity-80 text-sm">{s.data.date} {s.data.time ? `• ${s.data.time}` : ""} • {s.data.venue ?? ""}{s.data.venue && s.data.city ? ", " : ""}{s.data.city ?? ""}</div>
-          {s.data.rsvpUrl && <a class="text-sm" href={s.data.rsvpUrl}>RSVP</a>}
+        <li class="p-4 card flex items-center gap-4">
+          {s.data.image && <img src={s.data.image} alt={s.data.title} class="w-32 h-32 object-cover rounded-lg" />}
+          <div>
+            <div class="text-lg">{s.data.title}</div>
+            <div class="opacity-80 text-sm">{s.data.date} {s.data.time ? `• ${s.data.time}` : ""} • {s.data.venue ?? ""}{s.data.venue && s.data.city ? ", " : ""}{s.data.city ?? ""}</div>
+            {s.data.rsvpUrl && <a class="text-sm" href={s.data.rsvpUrl}>RSVP</a>}
+          </div>
         </li>
       ))}
     </ul>

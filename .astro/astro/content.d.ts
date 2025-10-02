@@ -140,7 +140,30 @@ declare module 'astro:content' {
 	>;
 
 	type ContentEntryMap = {
-		"posts": {
+		"idea": {
+"card-on-ceiling.md": {
+	id: "card-on-ceiling.md";
+  slug: "card-on-ceiling";
+  body: string;
+  collection: "idea";
+  data: InferEntrySchema<"idea">
+} & { render(): Render[".md"] };
+"misers-dream.md": {
+	id: "misers-dream.md";
+  slug: "misers-dream";
+  body: string;
+  collection: "idea";
+  data: InferEntrySchema<"idea">
+} & { render(): Render[".md"] };
+"ring-flight.md": {
+	id: "ring-flight.md";
+  slug: "ring-flight";
+  body: string;
+  collection: "idea";
+  data: InferEntrySchema<"idea">
+} & { render(): Render[".md"] };
+};
+"posts": {
 "welcome.md": {
 	id: "welcome.md";
   slug: "welcome";
@@ -156,36 +179,6 @@ declare module 'astro:content' {
   body: string;
   collection: "shows";
   data: InferEntrySchema<"shows">
-} & { render(): Render[".md"] };
-};
-"tricks": {
-"ambitious-card.md": {
-	id: "ambitious-card.md";
-  slug: "ambitious-card";
-  body: string;
-  collection: "tricks";
-  data: InferEntrySchema<"tricks">
-} & { render(): Render[".md"] };
-"card-to-wallet.md": {
-	id: "card-to-wallet.md";
-  slug: "card-to-wallet";
-  body: string;
-  collection: "tricks";
-  data: InferEntrySchema<"tricks">
-} & { render(): Render[".md"] };
-"coin-matrix.md": {
-	id: "coin-matrix.md";
-  slug: "coin-matrix";
-  body: string;
-  collection: "tricks";
-  data: InferEntrySchema<"tricks">
-} & { render(): Render[".md"] };
-"four-ace-assembly.md": {
-	id: "four-ace-assembly.md";
-  slug: "four-ace-assembly";
-  body: string;
-  collection: "tricks";
-  data: InferEntrySchema<"tricks">
 } & { render(): Render[".md"] };
 };
 

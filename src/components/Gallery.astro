@@ -6,7 +6,7 @@ const { images = [] } = Astro.props;
   <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
     {images.map((src) => (
       <a href={src} target="_blank" rel="noopener" class="block">
-        <img src={src} loading="lazy" alt="Gallery image" class="rounded-2xl" />
+        <img src={src} loading="lazy" alt="Gallery image" class="rounded-2xl w-32 h-32" />
       </a>
     ))}
   </div>

@@ -4,8 +4,7 @@ import sitemap from "@astrojs/sitemap";
 import VitePWA from '@vite-pwa/astro';
 
 export default defineConfig({
-  site: 'https://snucko.github.io',
-  base: '/lukemagic',
+  site: 'https://lukemagic.tivnan.org',
   integrations: [
     tailwind({ applyBaseStyles: true }),
     sitemap(),
