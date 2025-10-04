@@ -8,10 +8,11 @@ export async function GET() {
   const shows = await getCollection('shows');
   const lines = ["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Luke//Shows//EN"];
   for (const s of shows) {
+    const dateStr = s.data.date ? s.data.date.toISOString().split('T')[0].replace(/-/g, '') : '';
     lines.push("BEGIN:VEVENT",
       `UID:${s.slug}@luke.tivnan.org`,
       `DTSTAMP:${new Date().toISOString().replace(/[-:]/g,'').split('.')[0]}Z`,
-      s.data.date ? `DTSTART;VALUE=DATE:${s.data.date.replace(/-/g,'')}` : "",
+      dateStr ? `DTSTART;VALUE=DATE:${dateStr}` : "",
       `SUMMARY:${escapeICal(s.data.title)}`,
       s.data.venue || s.data.city ? `LOCATION:${escapeICal([s.data.venue, s.data.city].filter(Boolean).join(", "))}` : "",
       "END:VEVENT");
