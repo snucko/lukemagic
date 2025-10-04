@@ -27,37 +27,10 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
-      # Mini-mirror: pull content & media repos into the working tree
-      - name: Pull content/media (mini-mirror)
-        env:
-          CONTENT_PAT: ${{ secrets.CONTENT_PAT }} # optional; needed only if repos are private
+      # Ensure content directories exist
+      - name: Setup content directories
         run: |
-          set -euo pipefail
-          # Use token for private repos
-          if [ -n "${CONTENT_PAT:-}" ]; then
-            git config --global url."https://oauth2:${CONTENT_PAT}@github.com/".insteadOf "https://github.com/"
-          fi
-
-          rm -rf tmp-mirror && mkdir -p tmp-mirror
-          cd tmp-mirror
-
-          echo "==> Mirroring luke-content -> src/content/"
-          git clone --depth=1 https://github.com/snucko/luke-content.git content
-          rsync -a --delete content/ ../src/content/
-
-          echo "==> Mirroring luke-media -> public/media/"
-          git clone --depth=1 https://github.com/snucko/luke-media.git media
-          rsync -a --delete media/ ../public/media/
-
-          cd ..
-          rm -rf tmp-mirror
-
-      # Keep Astro content collections happy (no loose files at src/content/)
-      - name: Clean content root
-        run: |
-          set -euo pipefail
           mkdir -p src/content/tricks src/content/posts src/content/shows
-          find src/content -maxdepth 1 -type f -print -delete || true
 
       - name: Install deps
         run: |

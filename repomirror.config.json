@@ -1,17 +1,3 @@
 {
-  "mirrors": [
-    {
-      "repo": "https://github.com/snucko/luke-content.git",
-      "path": "src/content"
-    },
-    {
-      "repo": "https://github.com/snucko/luke-media.git",
-      "path": "public/media"
-    },
-    {
-      "repo": "https://github.com/snucko/luke-data.git",
-      "path": "data",
-      "optional": true
-    }
-  ]
+  "mirrors": []
 }
