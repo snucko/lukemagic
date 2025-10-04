@@ -1,5 +1,7 @@
 ---
 import Seo from "../components/Seo.astro";
+import "../styles/global.css";
+
 const { title = "Luke — Magic", description = "Street magic, close-up, and stage by Luke.", ogImage = "/media/og-default.png" } = Astro.props;
 
 const personJsonLd = {
@@ -17,7 +19,6 @@ const personJsonLd = {
     <Seo {title} {description} {ogImage} />
     <script type="application/ld+json">{JSON.stringify(personJsonLd)}</script>
     <link rel="manifest" href="/manifest.webmanifest" />
-    <link rel="stylesheet" href="/src/styles/global.css" />
   </head>
   <body class="min-h-screen flex flex-col font-display animate-fade-in">
     <header class="px-6 py-4 border-b border-neutral-800">
