@@ -27,9 +27,11 @@ const shows = defineCollection({
 const tricks = defineCollection({
   schema: z.object({
     title: z.string(),
-    description: z.string(),
-    image: z.string().optional(),
+    summary: z.string(),
     tags: z.array(z.string()).optional(),
+    difficulty: z.enum(['beginner', 'intermediate', 'advanced']),
+    durationMin: z.number().int().min(1).max(10),
+    image: z.string().optional(),
   }),
 });
 
@@ -41,4 +43,4 @@ const idea = defineCollection({
   }),
 });
 
-export const collections = { posts, shows, idea };
+export const collections = { posts, shows, tricks, idea };

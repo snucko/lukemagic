@@ -1,18 +1,47 @@
 ---
 import Base from "../layouts/Base.astro";
-import Gallery from "../components/Gallery.astro";
-const images = [
-  "/media/gallery/row-1-column-1.png",
-  "/media/gallery/row-1-column-2.png",
-  "/media/gallery/row-1-column-3.png",
-  "/media/gallery/row-2-column-1.png",
-  "/media/gallery/row-2-column-2.png",
-  "/media/gallery/row-2-column-3.png",
-  "/media/gallery/row-3-column-1.png",
-  "/media/gallery/row-3-column-2.png",
-  "/media/gallery/row-3-column-3.png",
-];
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import { readdir } from "node:fs/promises";
+import { join } from "node:path";
+
+let images: Array<{ src: string; alt: string }> = [];
+
+try {
+  const galleryPath = join(process.cwd(), "public", "media", "gallery");
+  const files = await readdir(galleryPath);
+  images = files
+    .filter(file => /\.(png|jpe?g|gif|webp)$/i.test(file))
+    .sort()
+    .map((file, index) => {
+      const row = Math.floor(index / 3) + 1;
+      const col = (index % 3) + 1;
+      return {
+        src: `/media/gallery/${file}`,
+        alt: `Luke performing magic - Gallery image ${row}-${col}`
+      };
+    });
+} catch (error) {
+  console.warn("Could not load gallery images:", error);
+}
 ---
 <Base title="Gallery — Luke" description="Photo gallery of Luke's magic performances and show highlights.">
-  <Gallery images={images} />
+  <Breadcrumbs items={[
+    { label: "Home", href: "/" },
+    { label: "Gallery" }
+  ]} />
+  <section class="max-w-6xl mx-auto px-6 py-10">
+    <h2 class="text-2xl mb-4">Gallery</h2>
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+      {images.map((image) => (
+        <a href={image.src} target="_blank" rel="noopener" class="block group">
+          <img 
+            src={image.src} 
+            loading="lazy" 
+            alt={image.alt} 
+            class="rounded-2xl w-full h-auto aspect-square object-cover transition-transform duration-300 group-hover:scale-105" 
+          />
+        </a>
+      ))}
+    </div>
+  </section>
 </Base>

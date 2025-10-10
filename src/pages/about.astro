@@ -1,7 +1,12 @@
 ---
 import Base from "../layouts/Base.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
 ---
 <Base title="About — Luke" description="Learn about Luke's approach to close-up and street magic.">
+  <Breadcrumbs items={[
+    { label: "Home", href: "/" },
+    { label: "About" }
+  ]} />
   <section class="max-w-3xl mx-auto px-6 py-16 prose prose-invert">
     <h1>About Luke</h1>
     <p>Luke performs close-up and street magic, specializing in cards and coins.</p>

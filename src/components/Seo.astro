@@ -1,10 +1,21 @@
 ---
 const { title = "Luke — Magic", description = "Street magic, close-up, and stage by Luke.", ogImage = "/media/og-default.png", canonical = undefined } = Astro.props;
+const fullOgImage = new URL(ogImage, Astro.site ?? 'https://lukemagic.tivnan.org').toString();
 ---
 <title>{title}</title>
 <meta name="description" content={description} />
+<meta name="theme-color" content="#0b0b0f" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" type="image/png" sizes="192x192" href="/pwa-192x192.png" />
+<link rel="icon" type="image/png" sizes="512x512" href="/pwa-512x512.png" />
+<link rel="apple-touch-icon" href="/pwa-192x192.png" />
 <link rel="canonical" href={canonical ?? Astro.url.href} />
+<meta property="og:type" content="website" />
+<meta property="og:url" content={Astro.url.href} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={ogImage} />
+<meta property="og:image" content={fullOgImage} />
 <meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={fullOgImage} />

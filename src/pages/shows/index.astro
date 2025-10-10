@@ -1,19 +1,39 @@
 ---
 import Base from "../../layouts/Base.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import { getCollection } from 'astro:content';
 const shows = (await getCollection('shows')).sort((a,b)=> (a.data.date > b.data.date ? 1 : -1));
 const eventsLd = shows.map(s => ({
   "@context": "https://schema.org",
   "@type": "Event",
   "name": s.data.title,
+  "description": s.data.summary,
   "startDate": s.data.date,
   "eventStatus": "https://schema.org/EventScheduled",
   "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-  "location": { "@type": "Place", "name": s.data.venue || "TBA", "address": s.data.city || "" }
+  "location": { "@type": "Place", "name": s.data.venue || "TBA", "address": s.data.city || "" },
+  "performer": {
+    "@type": "Person",
+    "name": "Luke"
+  },
+  ...(s.data.image && { "image": new URL(s.data.image, Astro.site ?? 'https://lukemagic.tivnan.org').toString() })
 }));
+
+const performerLd = {
+  "@context": "https://schema.org",
+  "@type": "PerformingGroup",
+  "name": "Luke — Magic",
+  "description": "Professional magician specializing in close-up and street magic",
+  "url": Astro.site?.toString() ?? "https://lukemagic.tivnan.org"
+};
 ---
 <Base title="Shows — Luke" description="Upcoming magic shows and performances by Luke.">
-  <script type="application/ld+json">{JSON.stringify(eventsLd)}</script>
+  <script type="application/ld+json" set:html={JSON.stringify(eventsLd)} />
+  <script type="application/ld+json" set:html={JSON.stringify(performerLd)} />
+  <Breadcrumbs items={[
+    { label: "Home", href: "/" },
+    { label: "Shows" }
+  ]} />
   <section class="max-w-4xl mx-auto px-6 py-12">
     <h1 class="text-3xl mb-6">Upcoming Shows</h1>
     <ul class="space-y-4">

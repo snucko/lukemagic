@@ -169,6 +169,13 @@ declare module 'astro:content' {
   collection: "idea";
   data: InferEntrySchema<"idea">
 } & { render(): Render[".md"] };
+"sponge-balls.md": {
+	id: "sponge-balls.md";
+  slug: "sponge-balls";
+  body: string;
+  collection: "idea";
+  data: InferEntrySchema<"idea">
+} & { render(): Render[".md"] };
 };
 "posts": {
 "welcome.md": {
@@ -186,6 +193,78 @@ declare module 'astro:content' {
   body: string;
   collection: "shows";
   data: InferEntrySchema<"shows">
+} & { render(): Render[".md"] };
+};
+"tricks": {
+"ambitious-card.md": {
+	id: "ambitious-card.md";
+  slug: "ambitious-card";
+  body: string;
+  collection: "tricks";
+  data: InferEntrySchema<"tricks">
+} & { render(): Render[".md"] };
+"card-to-pocket.md": {
+	id: "card-to-pocket.md";
+  slug: "card-to-pocket";
+  body: string;
+  collection: "tricks";
+  data: InferEntrySchema<"tricks">
+} & { render(): Render[".md"] };
+"chicago-opener.md": {
+	id: "chicago-opener.md";
+  slug: "chicago-opener";
+  body: string;
+  collection: "tricks";
+  data: InferEntrySchema<"tricks">
+} & { render(): Render[".md"] };
+"coin-matrix.md": {
+	id: "coin-matrix.md";
+  slug: "coin-matrix";
+  body: string;
+  collection: "tricks";
+  data: InferEntrySchema<"tricks">
+} & { render(): Render[".md"] };
+"coin-through-table.md": {
+	id: "coin-through-table.md";
+  slug: "coin-through-table";
+  body: string;
+  collection: "tricks";
+  data: InferEntrySchema<"tricks">
+} & { render(): Render[".md"] };
+"coins-across.md": {
+	id: "coins-across.md";
+  slug: "coins-across";
+  body: string;
+  collection: "tricks";
+  data: InferEntrySchema<"tricks">
+} & { render(): Render[".md"] };
+"copper-silver-brass.md": {
+	id: "copper-silver-brass.md";
+  slug: "copper-silver-brass";
+  body: string;
+  collection: "tricks";
+  data: InferEntrySchema<"tricks">
+} & { render(): Render[".md"] };
+"french-drop.md": {
+	id: "french-drop.md";
+  slug: "french-drop";
+  body: string;
+  collection: "tricks";
+  data: InferEntrySchema<"tricks">
+} & { render(): Render[".md"] };
+"spellbound.md": {
+	id: "spellbound.md";
+  slug: "spellbound";
+  body: string;
+  collection: "tricks";
+  data: InferEntrySchema<"tricks">
+} & { render(): Render[".md"] };
+"three-card-monte.md": {
+	id: "three-card-monte.md";
+  slug: "three-card-monte";
+  body: string;
+  collection: "tricks";
+  data: InferEntrySchema<"tricks">
 } & { render(): Render[".md"] };
 };
 

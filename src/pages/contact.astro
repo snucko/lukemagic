@@ -1,15 +1,114 @@
 ---
 import Base from "../layouts/Base.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
 ---
 <Base title="Contact — Luke" description="Get in touch with Luke for magic show bookings and inquiries.">
+  <Breadcrumbs items={[
+    { label: "Home", href: "/" },
+    { label: "Contact" }
+  ]} />
   <section class="max-w-3xl mx-auto px-6 py-16 prose prose-invert">
     <h1>Contact</h1>
-    <form action="https://formspree.io/f/xyznjjld" method="POST" class="grid gap-4">
-      <input class="px-4 py-3 rounded-2xl bg-magic-panel border border-neutral-700" type="text" name="name" placeholder="Your name" required />
-      <input class="px-4 py-3 rounded-2xl bg-magic-panel border border-neutral-700" type="email" name="email" placeholder="Email" required />
-      <textarea class="px-4 py-3 rounded-2xl bg-magic-panel border border-neutral-700" name="message" placeholder="How can we help?" required></textarea>
+    <form id="contact-form" action="https://formspree.io/f/xyznjjld" method="POST" class="grid gap-4" novalidate>
+      <div>
+        <label for="name" class="block text-sm font-medium mb-2">Name</label>
+        <input id="name" class="w-full px-4 py-3 rounded-2xl bg-magic-panel border border-neutral-700 focus:outline-none focus:ring-2 focus:ring-magic-gold transition-all" type="text" name="name" placeholder="Your name" required />
+        <span class="error-message hidden text-sm text-red-400 mt-1"></span>
+      </div>
+      <div>
+        <label for="email" class="block text-sm font-medium mb-2">Email</label>
+        <input id="email" class="w-full px-4 py-3 rounded-2xl bg-magic-panel border border-neutral-700 focus:outline-none focus:ring-2 focus:ring-magic-gold transition-all" type="email" name="email" placeholder="your@email.com" required />
+        <span class="error-message hidden text-sm text-red-400 mt-1"></span>
+      </div>
+      <div>
+        <label for="message" class="block text-sm font-medium mb-2">Message</label>
+        <textarea id="message" class="w-full px-4 py-3 rounded-2xl bg-magic-panel border border-neutral-700 focus:outline-none focus:ring-2 focus:ring-magic-gold transition-all min-h-[150px]" name="message" placeholder="How can we help?" required></textarea>
+        <span class="error-message hidden text-sm text-red-400 mt-1"></span>
+      </div>
       <input type="hidden" name="_redirect" value="/" />
-      <button class="btn-primary" type="submit">Send</button>
+      <button class="btn-primary" type="submit">
+        <span class="button-text">Send Message</span>
+        <span class="button-loading hidden">Sending...</span>
+      </button>
+      <div id="form-status" class="hidden p-4 rounded-2xl"></div>
     </form>
   </section>
+  <script>
+    const form = document.getElementById('contact-form') as HTMLFormElement;
+    const statusDiv = document.getElementById('form-status');
+    const submitButton = form.querySelector('button[type="submit"]');
+    const buttonText = submitButton?.querySelector('.button-text');
+    const buttonLoading = submitButton?.querySelector('.button-loading');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const name = form.querySelector('#name') as HTMLInputElement;
+      const email = form.querySelector('#email') as HTMLInputElement;
+      const message = form.querySelector('#message') as HTMLTextAreaElement;
+      
+      let isValid = true;
+      
+      [name, email, message].forEach(field => {
+        const errorSpan = field.parentElement?.querySelector('.error-message');
+        if (!field.value.trim()) {
+          field.classList.add('border-red-400');
+          if (errorSpan) {
+            errorSpan.textContent = 'This field is required';
+            errorSpan.classList.remove('hidden');
+          }
+          isValid = false;
+        } else if (field.type === 'email' && !field.value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+          field.classList.add('border-red-400');
+          if (errorSpan) {
+            errorSpan.textContent = 'Please enter a valid email';
+            errorSpan.classList.remove('hidden');
+          }
+          isValid = false;
+        } else {
+          field.classList.remove('border-red-400');
+          errorSpan?.classList.add('hidden');
+        }
+      });
+      
+      if (!isValid) return;
+      
+      buttonText?.classList.add('hidden');
+      buttonLoading?.classList.remove('hidden');
+      submitButton?.setAttribute('disabled', 'true');
+      
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        
+        if (response.ok) {
+          statusDiv?.classList.remove('hidden', 'bg-red-900');
+          statusDiv?.classList.add('bg-green-900');
+          if (statusDiv) statusDiv.textContent = 'Message sent successfully!';
+          form.reset();
+        } else {
+          throw new Error('Form submission failed');
+        }
+      } catch (error) {
+        statusDiv?.classList.remove('hidden', 'bg-green-900');
+        statusDiv?.classList.add('bg-red-900');
+        if (statusDiv) statusDiv.textContent = 'Failed to send message. Please try again.';
+      } finally {
+        buttonText?.classList.remove('hidden');
+        buttonLoading?.classList.add('hidden');
+        submitButton?.removeAttribute('disabled');
+      }
+    });
+    
+    ['name', 'email', 'message'].forEach(id => {
+      const field = document.getElementById(id);
+      field?.addEventListener('input', () => {
+        field.classList.remove('border-red-400');
+        field.parentElement?.querySelector('.error-message')?.classList.add('hidden');
+      });
+    });
+  </script>
 </Base>

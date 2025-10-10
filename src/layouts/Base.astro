@@ -21,39 +21,53 @@ const personJsonLd = {
     <link rel="manifest" href="/manifest.webmanifest" />
   </head>
   <body class="min-h-screen flex flex-col font-display animate-fade-in">
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
     <header class="px-6 py-4 border-b border-neutral-800">
       <div class="max-w-6xl mx-auto flex items-center justify-between">
-        <a href="/" class="text-3xl font-serif font-semibold tracking-wide no-underline transition-transform duration-300 hover:scale-105">Luke</a>
-        <nav class="flex gap-4 text-sm">
-          
-          <a href="/ideas/" class="relative group">
+        <a href="/" class="text-3xl font-serif font-semibold tracking-wide no-underline transition-transform duration-300 hover:scale-105" aria-label="Luke Magic Home">Luke</a>
+        <button id="menu-toggle" class="md:hidden p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-magic-gold rounded" aria-label="Toggle navigation menu" aria-expanded="false">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path class="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            <path class="close-icon hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+        <nav id="main-nav" class="hidden md:flex gap-4 text-sm" aria-label="Main navigation">
+          <a href="/ideas/" class="nav-link">
             <span>Ideas</span>
-            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-magic-gold transition-all duration-300 group-hover:w-full"></span>
+            <span class="nav-underline"></span>
           </a>
-          <a href="/shows/" class="relative group">
+          <a href="/shows/" class="nav-link">
             <span>Shows</span>
-            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-magic-gold transition-all duration-300 group-hover:w-full"></span>
+            <span class="nav-underline"></span>
           </a>
-          <a href="/gallery/" class="relative group">
+          <a href="/gallery/" class="nav-link">
             <span>Gallery</span>
-            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-magic-gold transition-all duration-300 group-hover:w-full"></span>
+            <span class="nav-underline"></span>
           </a>
-          <a href="/press/" class="relative group">
+          <a href="/press/" class="nav-link">
             <span>Press</span>
-            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-magic-gold transition-all duration-300 group-hover:w-full"></span>
+            <span class="nav-underline"></span>
           </a>
-          <a href="/about/" class="relative group">
+          <a href="/about/" class="nav-link">
             <span>About</span>
-            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-magic-gold transition-all duration-300 group-hover:w-full"></span>
+            <span class="nav-underline"></span>
           </a>
-          <a href="/contact/" class="relative group">
+          <a href="/contact/" class="nav-link">
             <span>Contact</span>
-            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-magic-gold transition-all duration-300 group-hover:w-full"></span>
+            <span class="nav-underline"></span>
           </a>
         </nav>
       </div>
+      <div id="mobile-nav" class="hidden md:hidden mt-4 flex flex-col gap-2" aria-label="Mobile navigation">
+        <a href="/ideas/" class="nav-link-mobile">Ideas</a>
+        <a href="/shows/" class="nav-link-mobile">Shows</a>
+        <a href="/gallery/" class="nav-link-mobile">Gallery</a>
+        <a href="/press/" class="nav-link-mobile">Press</a>
+        <a href="/about/" class="nav-link-mobile">About</a>
+        <a href="/contact/" class="nav-link-mobile">Contact</a>
+      </div>
     </header>
-    <main class="flex-1">{Astro.slots.default ? <slot/> : null}</main>
+    <main id="main-content" class="flex-1">{Astro.slots.default ? <slot/> : null}</main>
     <footer class="px-6 py-10 border-t border-neutral-800 text-sm">
       <div class="max-w-6xl mx-auto flex items-center justify-between">
         <p>© {new Date().getFullYear()} Luke</p>
@@ -64,5 +78,20 @@ const personJsonLd = {
         </div>
       </div>
     </footer>
+    <script>
+      document.getElementById('menu-toggle')?.addEventListener('click', () => {
+        const mobileNav = document.getElementById('mobile-nav');
+        const menuToggle = document.getElementById('menu-toggle');
+        const menuIcon = menuToggle?.querySelector('.menu-icon');
+        const closeIcon = menuToggle?.querySelector('.close-icon');
+        
+        mobileNav?.classList.toggle('hidden');
+        menuIcon?.classList.toggle('hidden');
+        closeIcon?.classList.toggle('hidden');
+        
+        const isExpanded = menuToggle?.getAttribute('aria-expanded') === 'true';
+        menuToggle?.setAttribute('aria-expanded', (!isExpanded).toString());
+      });
+    </script>
   </body>
 </html>
