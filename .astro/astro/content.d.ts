@@ -141,9 +141,44 @@ declare module 'astro:content' {
 
 	type ContentEntryMap = {
 		"idea": {
+"ambitious-card.md": {
+	id: "ambitious-card.md";
+  slug: "ambitious-card";
+  body: string;
+  collection: "idea";
+  data: InferEntrySchema<"idea">
+} & { render(): Render[".md"] };
 "card-on-ceiling.md": {
 	id: "card-on-ceiling.md";
   slug: "card-on-ceiling";
+  body: string;
+  collection: "idea";
+  data: InferEntrySchema<"idea">
+} & { render(): Render[".md"] };
+"chinese-linking-rings.md": {
+	id: "chinese-linking-rings.md";
+  slug: "chinese-linking-rings";
+  body: string;
+  collection: "idea";
+  data: InferEntrySchema<"idea">
+} & { render(): Render[".md"] };
+"cups-and-balls.md": {
+	id: "cups-and-balls.md";
+  slug: "cups-and-balls";
+  body: string;
+  collection: "idea";
+  data: InferEntrySchema<"idea">
+} & { render(): Render[".md"] };
+"cut-and-restored-rope.md": {
+	id: "cut-and-restored-rope.md";
+  slug: "cut-and-restored-rope";
+  body: string;
+  collection: "idea";
+  data: InferEntrySchema<"idea">
+} & { render(): Render[".md"] };
+"floating-bill.md": {
+	id: "floating-bill.md";
+  slug: "floating-bill";
   body: string;
   collection: "idea";
   data: InferEntrySchema<"idea">
@@ -172,6 +207,13 @@ declare module 'astro:content' {
 "sponge-balls.md": {
 	id: "sponge-balls.md";
   slug: "sponge-balls";
+  body: string;
+  collection: "idea";
+  data: InferEntrySchema<"idea">
+} & { render(): Render[".md"] };
+"torn-and-restored-newspaper.md": {
+	id: "torn-and-restored-newspaper.md";
+  slug: "torn-and-restored-newspaper";
   body: string;
   collection: "idea";
   data: InferEntrySchema<"idea">
