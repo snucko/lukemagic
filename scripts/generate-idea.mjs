@@ -6,8 +6,8 @@ async function fetchTrickOfTheDay() {
     const response = await fetch('https://magic.tivnan.net/');
     const html = await response.text();
     
-    // Extract trick name from "Trick Name: "..." format
-    const trickNameMatch = html.match(/Trick Name:\s*"([^"]+)"/);
+    // Extract trick name from "Trick Name: " format (with or without quotes)
+    const trickNameMatch = html.match(/Trick Name:\s*"?([^"<\n]+)"?/);
     if (!trickNameMatch) {
       console.log('Could not parse trick name from website.');
       process.exit(1);
