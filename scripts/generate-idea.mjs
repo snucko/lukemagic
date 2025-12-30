@@ -13,7 +13,11 @@ async function fetchTrickOfTheDay() {
       process.exit(1);
     }
     
-    const title = trickNameMatch[1];
+    let title = trickNameMatch[1].trim();
+    // Remove surrounding quotes if present
+    if (title.startsWith('"') && title.endsWith('"')) {
+      title = title.slice(1, -1);
+    }
     const fileName = title.toLowerCase().replace(/\s+/g, '-') + '.md';
     const filePath = path.join('src', 'content', 'idea', fileName);
     
