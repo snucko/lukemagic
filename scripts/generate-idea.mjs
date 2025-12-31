@@ -1,15 +1,47 @@
 import fs from 'fs';
 import path from 'path';
 
+const MAX_RETRIES = 3;
+const RETRY_DELAY = 2000; // 2 seconds
+
+async function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function fetchWithRetry(url, retries = MAX_RETRIES) {
+  for (let i = 0; i < retries; i++) {
+    try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+      
+      const response = await fetch(url, { signal: controller.signal });
+      clearTimeout(timeout);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+      return await response.text();
+    } catch (error) {
+      if (i < retries - 1) {
+        console.log(`Attempt ${i + 1} failed: ${error.message}. Retrying in ${RETRY_DELAY}ms...`);
+        await sleep(RETRY_DELAY);
+      } else {
+        throw error;
+      }
+    }
+  }
+}
+
 async function fetchTrickOfTheDay() {
   try {
-    const response = await fetch('https://magic.tivnan.net/');
-    const html = await response.text();
+    const html = await fetchWithRetry('https://magic.tivnan.net/');
     
     // Extract trick name from "Trick Name: " format (with or without quotes)
     const trickNameMatch = html.match(/Trick Name:\s*"?([^"<\n]+)"?/);
     if (!trickNameMatch) {
       console.log('Could not parse trick name from website.');
+      console.log('HTML length:', html.length);
+      console.log('First 500 chars:', html.substring(0, 500));
       process.exit(1);
     }
     
