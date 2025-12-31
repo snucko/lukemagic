@@ -36,22 +36,62 @@ async function fetchTrickOfTheDay() {
   try {
     const html = await fetchWithRetry('https://magic.tivnan.net/');
     
+    // Validate we got a complete response
+    if (!html || html.length < 500) {
+      console.error('Received incomplete or empty response. HTML length:', html?.length || 0);
+      process.exit(1);
+    }
+    
+    // Check if we got an error page or unusual response
+    if (html.includes('error') && html.includes('500')) {
+      console.error('Server returned an error page.');
+      process.exit(1);
+    }
+    
     // Extract trick name from "Trick Name: " format (with or without quotes)
     const trickNameMatch = html.match(/Trick Name:\s*"?([^"<\n]+)"?/);
     if (!trickNameMatch) {
-      console.log('Could not parse trick name from website.');
-      console.log('HTML length:', html.length);
-      console.log('First 500 chars:', html.substring(0, 500));
+      console.error('Could not parse trick name from website.');
+      console.error('HTML length:', html.length);
+      
+      // Check if the website structure might have changed
+      if (!html.includes('Trick Name')) {
+        console.error('Website structure may have changed - "Trick Name" field not found.');
+      }
+      if (!html.includes('Magic Trick of the Day')) {
+        console.error('Website structure may have changed - "Magic Trick of the Day" section not found.');
+      }
+      
       process.exit(1);
     }
     
     let title = trickNameMatch[1].trim();
+    
+    // Validate the title
+    if (!title || title.length === 0) {
+      console.error('Parsed trick name is empty.');
+      process.exit(1);
+    }
+    
     // Remove surrounding quotes if present
     if (title.startsWith('"') && title.endsWith('"')) {
-      title = title.slice(1, -1);
+      title = title.slice(1, -1).trim();
     }
+    
+    // Validate title again after cleaning
+    if (!title || title.length === 0) {
+      console.error('Trick name is empty after cleaning.');
+      process.exit(1);
+    }
+    
     const fileName = title.toLowerCase().replace(/\s+/g, '-') + '.md';
     const filePath = path.join('src', 'content', 'idea', fileName);
+    
+    // Ensure directory exists
+    const dir = path.dirname(filePath);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
     
     // Check if this trick already exists
     if (fs.existsSync(filePath)) {
@@ -79,8 +119,14 @@ category: Magic
 Trick of the day from https://magic.tivnan.net/
 `;
     
-    fs.writeFileSync(filePath, content);
-    console.log(`Generated new trick: ${title}`);
+    // Write file and handle errors
+    try {
+      fs.writeFileSync(filePath, content, 'utf-8');
+      console.log(`Generated new trick: ${title}`);
+    } catch (writeError) {
+      console.error(`Failed to write file ${filePath}:`, writeError.message);
+      process.exit(1);
+    }
   } catch (error) {
     console.error('Error fetching trick of the day:', error.message);
     process.exit(1);
