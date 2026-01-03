@@ -1,0 +1,19 @@
+name = "lukemagic-trick-generator"
+main = "cloudflare-worker.js"
+compatibility_date = "2024-12-03"
+
+[env.production]
+routes = [
+  { pattern = "tricks.yourdomain.com/generate", zone_name = "yourdomain.com" }
+]
+
+[[triggers.crons]]
+cron = "0 0 * * *"
+
+[vars]
+REPO_OWNER = "snucko"
+REPO_NAME = "lukemagic"
+BRANCH = "main"
+
+[secrets]
+# Set with: wrangler secret put GITHUB_TOKEN --env production
