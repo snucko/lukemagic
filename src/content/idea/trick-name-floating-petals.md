@@ -1,5 +1,5 @@
 ---
-title: Trick Name: "Floating Petals"
+title: "Floating Petals"
 description: Magic trick of the day
 category: Magic
 ---
