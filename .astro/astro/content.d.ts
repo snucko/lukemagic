@@ -211,6 +211,34 @@ declare module 'astro:content' {
   collection: "idea";
   data: InferEntrySchema<"idea">
 } & { render(): Render[".md"] };
+"the-colorful-enigma.md": {
+	id: "the-colorful-enigma.md";
+  slug: "the-colorful-enigma";
+  body: string;
+  collection: "idea";
+  data: InferEntrySchema<"idea">
+} & { render(): Render[".md"] };
+"the-mysterious-calendar.md": {
+	id: "the-mysterious-calendar.md";
+  slug: "the-mysterious-calendar";
+  body: string;
+  collection: "idea";
+  data: InferEntrySchema<"idea">
+} & { render(): Render[".md"] };
+"the-mysterious-prediction.md": {
+	id: "the-mysterious-prediction.md";
+  slug: "the-mysterious-prediction";
+  body: string;
+  collection: "idea";
+  data: InferEntrySchema<"idea">
+} & { render(): Render[".md"] };
+"the-vanishing-fiddle.md": {
+	id: "the-vanishing-fiddle.md";
+  slug: "the-vanishing-fiddle";
+  body: string;
+  collection: "idea";
+  data: InferEntrySchema<"idea">
+} & { render(): Render[".md"] };
 "torn-and-restored-newspaper.md": {
 	id: "torn-and-restored-newspaper.md";
   slug: "torn-and-restored-newspaper";
