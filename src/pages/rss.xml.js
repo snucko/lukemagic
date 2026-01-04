@@ -2,16 +2,16 @@ import rss from '@astrojs/rss';
 import { getCollection } from 'astro:content';
 
 export async function GET(context) {
-  const posts = await getCollection('posts');
+  const ideas = await getCollection('idea');
   return rss({
-    title: 'Luke — Updates',
-    description: 'News and posts from Luke.',
+    title: 'Luke — Daily Magic Ideas',
+    description: 'Daily magic trick ideas from Luke.',
     site: context.site,
-    items: posts.map((p) => ({
-      title: p.data.title,
-      pubDate: p.data.published ? new Date(p.data.published) : new Date(),
-      description: p.data.summary,
-      link: `/posts/${p.slug}/`,
+    items: ideas.map((i) => ({
+      title: i.data.title,
+      pubDate: new Date(),
+      description: i.data.description,
+      link: `/ideas/`,
     })),
   });
 }

@@ -2,12 +2,13 @@ import { getCollection } from 'astro:content';
 import { buildIndex } from '../components/SearchIndex';
 
 export async function GET() {
-  const tricks = await getCollection('tricks');
-  const posts = await getCollection('posts');
-  const docs = [
-    ...tricks.map(t => ({ id: `tricks/${t.slug}`, title: t.data.title, summary: t.data.summary ?? '', tags: t.data.tags ?? [] })),
-    ...posts.map(p => ({ id: `posts/${p.slug}`, title: p.data.title, summary: p.data.summary ?? '', tags: [] }))
-  ];
+  const ideas = await getCollection('idea');
+  const docs = ideas.map(i => ({ 
+    id: `idea/${i.slug}`, 
+    title: i.data.title, 
+    summary: i.data.description ?? '', 
+    tags: [i.data.category] 
+  }));
   const json = buildIndex(docs);
   return new Response(JSON.stringify(json), { headers: { 'content-type': 'application/json' } });
 }
