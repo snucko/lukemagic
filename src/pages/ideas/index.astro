@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
+import IdeaSearch from '../../components/IdeaSearch.astro';
 
 const ideas = await getCollection('idea');
 ---
@@ -9,6 +10,9 @@ const ideas = await getCollection('idea');
   <section class="max-w-6xl mx-auto px-6 py-16">
     <h1 class="text-4xl md:text-6xl font-serif font-bold leading-tight">Trick Ideas</h1>
     <p class="mt-4 text-lg opacity-90">A collection of intriguing magic tricks and illusions.</p>
+    <div class="mt-10">
+      <IdeaSearch />
+    </div>
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
       {ideas.map(idea => (
         <div class="card p-6">
