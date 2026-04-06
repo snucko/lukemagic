@@ -9,38 +9,43 @@ async function sleep(ms) {
 }
 
 async function fetchWithRetry(url, retries = MAX_RETRIES) {
-  for (let i = 0; i < retries; i++) {
-    try {
-      const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 10000); // 10 second timeout
-      
-      const response = await fetch(url, {
-        signal: controller.signal,
-        headers: {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-          'Accept-Language': 'en-US,en;q=0.5',
-          'Referer': 'https://google.com',
-          'DNT': '1',
-          'Connection': 'keep-alive',
-          'Upgrade-Insecure-Requests': '1'
-        }
-      });
-      clearTimeout(timeout);
-      
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}`);
-      }
-      return await response.text();
-    } catch (error) {
-      if (i < retries - 1) {
-        console.log(`Attempt ${i + 1} failed: ${error.message}. Retrying in ${RETRY_DELAY}ms...`);
-        await sleep(RETRY_DELAY);
-      } else {
-        throw error;
-      }
-    }
-  }
+   for (let i = 0; i < retries; i++) {
+     try {
+       const controller = new AbortController();
+       const timeout = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+       
+       const response = await fetch(url, {
+         signal: controller.signal,
+         headers: {
+           'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
+           'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+           'Accept-Language': 'en-US,en;q=0.9',
+           'Accept-Encoding': 'gzip, deflate, br',
+           'Sec-Ch-Ua': '"Not_A Brand";v="8", "Chromium";v="122"',
+           'Sec-Ch-Ua-Mobile': '?0',
+           'Sec-Ch-Ua-Platform': '"macOS"',
+           'Sec-Fetch-Dest': 'document',
+           'Sec-Fetch-Mode': 'navigate',
+           'Sec-Fetch-Site': 'none',
+           'Cache-Control': 'max-age=0',
+           'Pragma': 'no-cache'
+         }
+       });
+       clearTimeout(timeout);
+       
+       if (!response.ok) {
+         throw new Error(`HTTP ${response.status}`);
+       }
+       return await response.text();
+     } catch (error) {
+       if (i < retries - 1) {
+         console.log(`Attempt ${i + 1} failed: ${error.message}. Retrying in ${RETRY_DELAY}ms...`);
+         await sleep(RETRY_DELAY);
+       } else {
+         throw error;
+       }
+     }
+   }
 }
 
 async function fetchTrickOfTheDay() {
@@ -139,6 +144,11 @@ Trick of the day from https://magic.tivnan.net/
       process.exit(1);
     }
   } catch (error) {
+    // Handle 403 gracefully - server is blocking the request (likely due to GitHub Actions IP)
+    if (error.message.includes('403')) {
+      console.log('Skipping trick generation: Server blocked request (likely GitHub Actions IP). This is normal and will retry tomorrow.');
+      process.exit(0);
+    }
     console.error('Error fetching trick of the day:', error.message);
     process.exit(1);
   }
