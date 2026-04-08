@@ -35,18 +35,32 @@ const performerLd = {
     { label: "Shows" }
   ]} />
   <section class="max-w-4xl mx-auto px-6 py-12">
-    <h1 class="text-3xl mb-6">Upcoming Shows</h1>
-    <ul class="space-y-4">
-      {shows.map(s => (
-        <li class="p-4 card flex items-center gap-4">
-          {s.data.image && <img src={s.data.image} alt={s.data.title} class="w-32 h-32 object-cover rounded-lg" />}
-          <div>
-            <div class="text-lg">{s.data.title}</div>
-            <div class="opacity-80 text-sm">{s.data.date} {s.data.time ? `• ${s.data.time}` : ""} • {s.data.venue ?? ""}{s.data.venue && s.data.city ? ", " : ""}{s.data.city ?? ""}</div>
-            {s.data.rsvpUrl && <a class="text-sm" href={s.data.rsvpUrl}>RSVP</a>}
-          </div>
-        </li>
-      ))}
-    </ul>
+    <div class="flex items-center justify-between mb-8">
+      <div>
+        <h1 class="text-3xl md:text-4xl font-serif font-bold">Upcoming Shows</h1>
+        <p class="mt-2 opacity-90">Experience live magic performances</p>
+      </div>
+      <a href="/contact/" class="btn-primary whitespace-nowrap">Book a Performance</a>
+    </div>
+
+    {shows.length > 0 ? (
+      <ul class="space-y-4">
+        {shows.map(s => (
+          <li class="p-4 card flex items-center gap-4 hover:border-magic-purple transition-colors">
+            {s.data.image && <img src={s.data.image} alt={s.data.title} class="w-32 h-32 object-cover rounded-lg" />}
+            <div class="flex-1">
+              <div class="text-lg font-serif font-bold">{s.data.title}</div>
+              <div class="opacity-80 text-sm mt-2">{s.data.date} {s.data.time ? `• ${s.data.time}` : ""} • {s.data.venue ?? ""}{s.data.venue && s.data.city ? ", " : ""}{s.data.city ?? ""}</div>
+              {s.data.rsvpUrl && <a class="inline-block mt-3 text-sm btn-ghost" href={s.data.rsvpUrl}>RSVP →</a>}
+            </div>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <div class="card p-8 text-center">
+        <p class="opacity-80 mb-4">No shows scheduled at the moment</p>
+        <a href="/contact/" class="btn-primary">Get in Touch to Book</a>
+      </div>
+    )}
   </section>
 </Base>

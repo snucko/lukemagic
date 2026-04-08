@@ -19,6 +19,8 @@ const personJsonLd = {
     <Seo {title} {description} {ogImage} />
     <script type="application/ld+json">{JSON.stringify(personJsonLd)}</script>
     <link rel="manifest" href="/manifest.webmanifest" />
+    <!-- Plausible Analytics (privacy-first) -->
+    <script defer data-domain="lukemagic.tivnan.org" src="https://plausible.io/js/script.js"></script>
   </head>
   <body class="min-h-screen flex flex-col font-display animate-fade-in">
     <a href="#main-content" class="skip-to-content">Skip to main content</a>
@@ -31,7 +33,7 @@ const personJsonLd = {
             <path class="close-icon hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
           </svg>
         </button>
-        <nav id="main-nav" class="hidden md:flex gap-4 text-sm" aria-label="Main navigation">
+        <nav id="main-nav" class="hidden md:flex gap-4 text-sm items-center" aria-label="Main navigation">
           <a href="/ideas/" class="nav-link">
             <span>Ideas</span>
             <span class="nav-underline"></span>
@@ -56,6 +58,7 @@ const personJsonLd = {
             <span>Contact</span>
             <span class="nav-underline"></span>
           </a>
+          <a href="/contact/" class="btn-primary px-4 py-2 text-xs">Book</a>
         </nav>
       </div>
       <div id="mobile-nav" class="hidden md:hidden mt-4 flex flex-col gap-2" aria-label="Mobile navigation">
