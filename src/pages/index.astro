@@ -2,6 +2,7 @@
 import Base from "../layouts/Base.astro";
 import Inspirations from "../components/Inspirations.astro";
 import Testimonials from "../components/Testimonials.astro";
+import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 
 const allIdeas = await getCollection('idea');
@@ -18,7 +19,7 @@ const latestTricks = allIdeas.slice(0, 3);
           <a class="btn-ghost" href="/shows/">Book a Performance</a>
         </div>
       </div>
-      <img src="/media/gallery/row-1-column-1.png" alt="Luke performing magic" class="rounded-2xl transition-transform duration-300 hover:scale-105" loading="lazy" />
+      <img src="/media/gallery/row-1-column-1.png" alt="Luke performing magic" class="rounded-2xl transition-transform duration-300 hover:scale-105 w-full" loading="lazy" />
     </div>
   </section>
 

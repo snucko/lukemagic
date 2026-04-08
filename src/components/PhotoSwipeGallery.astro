@@ -1,0 +1,133 @@
+---
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+
+interface Props {
+  images: Array<{ src: string; alt: string }>;
+  columns?: number;
+  gap?: string;
+}
+
+const { images, columns = 3, gap = '4' } = Astro.props;
+const galleryId = `gallery-${Math.random().toString(36).substr(2, 9)}`;
+---
+
+<div id={galleryId} class={`grid grid-cols-2 md:grid-cols-${columns} gap-${gap}`}>
+  {images.map((image, index) => (
+    <a 
+      href={image.src}
+      class="pswp-gallery block group"
+      data-pswp-src={image.src}
+      data-pswp-width="1200"
+      data-pswp-height="800"
+    >
+      <img
+        src={image.src}
+        alt={image.alt}
+        loading="lazy"
+        class="rounded-2xl w-full h-auto aspect-square object-cover transition-transform duration-300 group-hover:scale-105 cursor-pointer"
+      />
+    </a>
+  ))}
+</div>
+
+<!-- PhotoSwipe root element -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="pswp__bg"></div>
+  <div class="pswp__scroll-wrap">
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    <div class="pswp__ui pswp__ui--reveal">
+      <div class="pswp__top-bar">
+        <div class="pswp__counter"></div>
+        <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+        <button class="pswp__button pswp__button--share" title="Share"></button>
+        <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+        <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+        <div class="pswp__preloader">
+          <div class="pswp__preloader__icn">
+            <div class="pswp__preloader__cut">
+              <div class="pswp__preloader__donut"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+        <div class="pswp__share-modal__box">
+          <h2>Share</h2>
+          <a href="#" class="pswp__share__a" id="pswp-facebook">Facebook</a>
+          <a href="#" class="pswp__share__a" id="pswp-twitter">Twitter</a>
+          <a href="#" class="pswp__share__a" id="pswp-pinterest">Pinterest</a>
+          <a href="#" class="pswp__share__a" id="pswp-download">Download</a>
+          <a href="#" class="pswp__share__a" id="pswp-copy-url">Copy URL</a>
+          <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+          <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+        </div>
+      </div>
+      <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+      <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+      <div class="pswp__caption">
+        <div class="pswp__caption__center"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/dist/photoswipe.min.css" />
+
+<script>
+  import PhotoSwipeLightbox from 'photoswipe/lightbox';
+  import PhotoSwipe from 'photoswipe';
+
+  const lightbox = new PhotoSwipeLightbox({
+    gallery: '.pswp-gallery',
+    children: 'a',
+    pswpModule: PhotoSwipe,
+    preloaderDelay: 0,
+    wheelToZoom: true,
+    showHideOpacity: true,
+  });
+  lightbox.init();
+
+  // Keyboard navigation
+  lightbox.on('uiRegisterElement', (el) => {
+    if (el.name === 'custom-caption') return;
+    if (el.name === 'arrowPrev' || el.name === 'arrowNext') {
+      el.onpress = () => {
+        if (el.name === 'arrowPrev') lightbox.prev();
+        if (el.name === 'arrowNext') lightbox.next();
+      };
+    }
+  });
+</script>
+
+<style is:global>
+  .pswp__bg {
+    background: rgba(0, 0, 0, 0.9);
+  }
+  
+  .pswp__button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+
+  .pswp__button:hover {
+    opacity: 1;
+  }
+
+  .pswp__top-bar {
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%);
+  }
+
+  .pswp__counter {
+    color: white;
+    font-size: 13px;
+  }
+</style>
