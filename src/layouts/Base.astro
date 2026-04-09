@@ -19,11 +19,25 @@ const personJsonLd = {
     <Seo {title} {description} {ogImage} />
     <script type="application/ld+json">{JSON.stringify(personJsonLd)}</script>
     <link rel="manifest" href="/manifest.webmanifest" />
-    <!-- Privacy-friendly analytics by Plausible -->
-    <script async src="https://plausible.io/js/pa-8cQyt4YaQgFQqFQqrSGQW.js"></script>
-    <script>
-      window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
-      plausible.init()
+    <!-- Cloudflare Analytics Engine -->
+    <script is:inline>
+      if (typeof navigator !== 'undefined') {
+        const sendAnalytics = () => {
+          if (navigator.sendBeacon) {
+            const data = new FormData();
+            data.append('event', 'pageview');
+            data.append('page', window.location.pathname);
+            data.append('referrer', document.referrer);
+            data.append('timestamp', new Date().toISOString());
+            navigator.sendBeacon('/__analytics_engine__/track', data);
+          }
+        };
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', sendAnalytics);
+        } else {
+          sendAnalytics();
+        }
+      }
     </script>
   </head>
   <body class="min-h-screen flex flex-col font-display animate-fade-in">

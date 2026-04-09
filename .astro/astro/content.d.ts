@@ -708,6 +708,13 @@ declare module 'astro:content' {
   collection: "idea";
   data: InferEntrySchema<"idea">
 } & { render(): Render[".md"] };
+"the-vanishing-quarter.md": {
+	id: "the-vanishing-quarter.md";
+  slug: "the-vanishing-quarter";
+  body: string;
+  collection: "idea";
+  data: InferEntrySchema<"idea">
+} & { render(): Render[".md"] };
 "the-vanishing-sock.md": {
 	id: "the-vanishing-sock.md";
   slug: "the-vanishing-sock";
