@@ -19,8 +19,12 @@ const personJsonLd = {
     <Seo {title} {description} {ogImage} />
     <script type="application/ld+json">{JSON.stringify(personJsonLd)}</script>
     <link rel="manifest" href="/manifest.webmanifest" />
-    <!-- Plausible Analytics (privacy-first) -->
-    <script defer data-domain="lukemagic.tivnan.org" src="https://plausible.io/js/script.js"></script>
+    <!-- Privacy-friendly analytics by Plausible -->
+    <script async src="https://plausible.io/js/pa-8cQyt4YaQgFQqFQqrSGQW.js"></script>
+    <script>
+      window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+      plausible.init()
+    </script>
   </head>
   <body class="min-h-screen flex flex-col font-display animate-fade-in">
     <a href="#main-content" class="skip-to-content">Skip to main content</a>
