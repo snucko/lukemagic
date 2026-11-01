@@ -29,7 +29,7 @@ const personJsonLd = {
             data.append('page', window.location.pathname);
             data.append('referrer', document.referrer);
             data.append('timestamp', new Date().toISOString());
-            navigator.sendBeacon('/__analytics_engine__/track', data);
+            navigator.sendBeacon('https://luke-analytics.tivnan.net/track', data);
           }
         };
         if (document.readyState === 'loading') {
