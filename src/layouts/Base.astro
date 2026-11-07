@@ -21,16 +21,18 @@ const personJsonLd = {
     <link rel="manifest" href="/manifest.webmanifest" />
     <!-- Cloudflare Analytics Engine -->
     <script is:inline>
-      if (typeof navigator !== 'undefined') {
+      if (typeof fetch !== 'undefined') {
         const sendAnalytics = () => {
-          if (navigator.sendBeacon) {
-            const data = new FormData();
-            data.append('event', 'pageview');
-            data.append('page', window.location.pathname);
-            data.append('referrer', document.referrer);
-            data.append('timestamp', new Date().toISOString());
-            navigator.sendBeacon('https://luke-analytics.tivnan.net/track', data);
-          }
+          const data = new FormData();
+          data.append('event', 'pageview');
+          data.append('page', window.location.pathname);
+          data.append('referrer', document.referrer);
+          data.append('timestamp', new Date().toISOString());
+          // fetch(keepalive) instead of navigator.sendBeacon(): Cloudflare's bot
+          // scoring flags the Beacon API transport itself as automated traffic
+          // (confirmed 2026-11-07 — identical request via sendBeacon got a 503,
+          // via fetch got 200), independent of any WAF/bot-fight-mode rule.
+          fetch('https://luke-analytics.tivnan.net/track', { method: 'POST', body: data, keepalive: true }).catch(() => {});
         };
         if (document.readyState === 'loading') {
           document.addEventListener('DOMContentLoaded', sendAnalytics);
