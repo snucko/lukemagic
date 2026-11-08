@@ -14,41 +14,25 @@
 </div>
 
 <script>
-  import elasticlunr from 'elasticlunr';
-
   interface SearchIndex {
-    type: 'idea' | 'show' | 'article';
+    type: 'idea' | 'show';
     title: string;
     description?: string;
     slug: string;
   }
 
-  let searchIndex: ReturnType<typeof elasticlunr.Index.load> | null = null;
   let allResults: SearchIndex[] = [];
 
   async function initSearch() {
     try {
       const response = await fetch('/search.json');
-      const data = await response.json();
-      allResults = data;
-
-      // Build search index
-      const idx = elasticlunr<SearchIndex>();
-      idx.addField('title');
-      idx.addField('description');
-      idx.addField('type');
-      
-      data.forEach((item: SearchIndex) => {
-        idx.addDoc(item);
-      });
-      
-      searchIndex = idx;
+      allResults = await response.json();
     } catch (error) {
       console.error('Failed to load search index:', error);
     }
   }
 
-  function displayResults(results: elasticlunr.Document[]) {
+  function displayResults(results: SearchIndex[]) {
     const resultsDiv = document.getElementById('search-results');
     if (!resultsDiv) return;
 
@@ -59,41 +43,35 @@
 
     resultsDiv.innerHTML = results
       .slice(0, 8)
-      .map(result => {
-        const doc = allResults.find(r => r.slug === result.ref);
-        if (!doc) return '';
-
-        const typeLabel = doc.type === 'idea' ? '✨ Trick' : 
-                         doc.type === 'show' ? '🎭 Show' : 
-                         '📝 Article';
-        
-        const href = `/${doc.type === 'idea' ? 'ideas' : doc.type === 'show' ? 'shows' : 'blog'}/${doc.slug}/`;
-        
+      .map(doc => {
+        const typeLabel = doc.type === 'idea' ? '✨ Trick' : '🎭 Show';
         return `
-          <a href="${href}" class="card p-4 hover:border-magic-purple transition-colors block">
+          <div class="card p-4">
             <p class="text-xs font-bold text-magic-gold uppercase">${typeLabel}</p>
             <p class="font-bold font-serif text-lg mt-2">${doc.title}</p>
             ${doc.description ? `<p class="text-sm opacity-70 mt-2">${doc.description}</p>` : ''}
-          </a>
+          </div>
         `;
       })
       .join('');
   }
 
-  document.getElementById('global-search')?.addEventListener('input', (e) => {
-    const query = (e.target as HTMLInputElement).value.trim();
-    
+  document.getElementById('global-search')?.addEventListener('input', async (e) => {
+    const query = (e.target as HTMLInputElement).value.trim().toLowerCase();
+
     if (!query || query.length < 2) {
       document.getElementById('search-results')!.innerHTML = '';
       return;
     }
 
-    if (!searchIndex) {
-      initSearch();
-      return;
+    if (allResults.length === 0) {
+      await initSearch();
     }
 
-    const results = searchIndex.search(query, { boost: { title: 10 } });
+    const results = allResults.filter(doc =>
+      doc.title.toLowerCase().includes(query) ||
+      (doc.description ?? '').toLowerCase().includes(query)
+    );
     displayResults(results);
   });
 

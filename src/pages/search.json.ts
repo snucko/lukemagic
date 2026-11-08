@@ -6,14 +6,12 @@ export async function GET() {
 
   const docs = [
     ...ideas.map(i => ({
-      id: i.slug,
       slug: i.slug,
       type: 'idea' as const,
       title: i.data.title,
       description: i.data.description,
     })),
     ...shows.map(s => ({
-      id: s.slug,
       slug: s.slug,
       type: 'show' as const,
       title: s.data.title,
